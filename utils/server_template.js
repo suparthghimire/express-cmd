@@ -6,7 +6,8 @@ const import_collecton = {
     return 'const express = require("express");';
   },
   path: (module) => {
-    if (module === "es6") return 'import path from "path";';
+    if (module === "es6")
+      return 'import path from "path";\nimport {fileURLToPath} from "url";\nconst __filename = fileURLToPath(import.meta.url);\nconst __dirname = path.dirname(__filename);';
     return 'const path = require("path");';
   },
   cookie_parser: (module) => {

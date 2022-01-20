@@ -70,7 +70,8 @@ const CreateRoute = (controller_name, crud, module) => {
     index_route +
     "\n" +
     crud_string +
-    "\n"
+    "\n" +
+    (module === "es6" ? "export default router" : "module.exports = router;")
   );
 };
 
