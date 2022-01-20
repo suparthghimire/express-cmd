@@ -33,7 +33,7 @@ const middleware_collection = {
     'app.get("/", (req,res) => res.status(200).json({message:"OK"}))',
 
   public: (dir_name) =>
-    `app.use(express.static(path.join(__dirname, ${dir_name})));`,
+    `app.use(express.static(path.join(__dirname, "${dir_name}")));`,
   json: () => "app.use(express.json());",
   urlencoded: (extended) =>
     `app.use(express.urlencoded({ extended: ${extended} }));`,
