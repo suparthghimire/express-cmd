@@ -20,14 +20,14 @@ const CreateControllerFile = async (parameters) => {
   let fileName =
     parameters.file_name[0].toUpperCase() +
     parameters.file_name.slice(1) +
-    "Controller.js";
+    "Controller";
   const dir = "./controllers";
 
   if (!fs.existsSync(dir)) await fsPromises.mkdir(dir, { recursive: false });
-  await fsPromises.open(`./controllers/${fileName}`, "w");
+  await fsPromises.open(`./controllers/${fileName}.js`, "w");
 
-  const data = CreateController(crud);
-  await fsPromises.writeFile(`./controllers/${fileName}`, data);
+  const data = CreateController(fileName, crud, parameters.module);
+  await fsPromises.writeFile(`./controllers/${fileName}.js`, data);
   console.log("Controller Created");
 };
 

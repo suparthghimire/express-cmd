@@ -11,8 +11,8 @@ const create_route_function = (
   return `router.${method}("${route}", ${controller_name}.${controller_function})`;
 };
 
-const CreateController = (crud) => {
-  const start = "module.exports = {";
+const CreateController = (name, crud, module) => {
+  const start = `const ${name} = {`;
   const index = create_controller_function("index", 200, "Index Endpoint");
   let crud_functions = [];
   if (crud)
@@ -28,7 +28,19 @@ const CreateController = (crud) => {
     crud_functions.length > 0
       ? crud_functions.reduce((a, b) => a + ",\n  " + b)
       : "";
-  return start + "\n  " + index + ",  \n  " + crud_data + "\n" + end;
+  let export_txt = `module.exports = ${name}`;
+  if (module === "es6") export_txt = `export default ${name}`;
+  return (
+    start +
+    "\n  " +
+    index +
+    ",  \n  " +
+    crud_data +
+    "\n" +
+    end +
+    "\n" +
+    export_txt
+  );
 };
 const CreateRoute = (controller_name, crud, module) => {
   let express_import = 'const express = require("express")';
@@ -38,7 +50,7 @@ const CreateRoute = (controller_name, crud, module) => {
   if (module === "es6")
     controller_import = `import ${controller_name} from "../controllers/${controller_name}.js"`;
 
-  const initialize_router = "const router = express().Router";
+  const initialize_router = "const router = express.Router()";
 
   const index_route = create_route_function(
     "get",
