@@ -1,6 +1,5 @@
 const fs = require("fs").promises;
 const create_controller_function = (name, status, message) => {
-  console.log(name);
   return `${name}: (req, res) => res.status(${status}).json({ message: "${message}" })`;
 };
 const create_route_function = (
@@ -68,6 +67,8 @@ const CreateRoute = (controller_name, crud, module) => {
     ";\n\n" +
     controller_import +
     ";\n\n" +
+    index_route +
+    "\n" +
     crud_string +
     "\n"
   );

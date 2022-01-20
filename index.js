@@ -26,8 +26,9 @@ const CreateControllerFile = async (parameters) => {
   if (!fs.existsSync(dir)) await fsPromises.mkdir(dir, { recursive: false });
   await fsPromises.open(`./controllers/${fileName}`, "w");
 
-  const data = CreateController(parameters.crud);
+  const data = CreateController(crud);
   await fsPromises.writeFile(`./controllers/${fileName}`, data);
+  console.log("Controller Created");
 };
 
 const CreateRouteFile = async (parameters) => {
@@ -45,5 +46,6 @@ const CreateRouteFile = async (parameters) => {
 
   const data = CreateRoute(controllerName, crud, parameters.module);
   await fsPromises.writeFile(`./routes/${fileName}`, data);
+  console.log("Route File Created");
 };
 module.exports = { CreateServerFile, CreateControllerFile, CreateRouteFile };

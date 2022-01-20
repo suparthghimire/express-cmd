@@ -130,8 +130,8 @@ const CreateRoute = [
 ];
 
 program
-  .command("express-cli:init")
-  .alias("ec:init")
+  .command("init")
+  .alias("i")
   .description("Initializes Express Server")
   .option("--module", "-m", "Es6 Module Imports")
   .action((options) => {
@@ -148,8 +148,8 @@ program
   });
 
 program
-  .command("express-cli:cr-create")
-  .alias("ec:cr-create")
+  .command("cr-create")
+  .alias("cr-c")
   .description("Create Controller and Route")
   .option("-c", "CRUD Functions Implementation")
   .option("--crud", "Crud Function Implementation")
@@ -161,6 +161,39 @@ program
         module: ans.module === "y" ? "es6" : "es5",
       };
       CreateControllerFile(parameters);
+      CreateRouteFile(parameters);
+    });
+  });
+program
+  .command("c-create")
+  .alias("c-c")
+  .description("Create Controller")
+  .option("-c", "CRUD Functions Implementation")
+  .option("--crud", "Crud Function Implementation")
+  .action((options) => {
+    prompt(CreateController).then((ans) => {
+      const parameters = {
+        ...options,
+        ...ans,
+        module: ans.module === "y" ? "es6" : "es5",
+      };
+      CreateControllerFile(parameters);
+    });
+  });
+
+program
+  .command("r-create")
+  .alias("r-c")
+  .description("Create Route")
+  .option("-c", "CRUD Functions Implementation")
+  .option("--crud", "Crud Function Implementation")
+  .action((options) => {
+    prompt(CreateRoute).then((ans) => {
+      const parameters = {
+        ...options,
+        ...ans,
+        module: ans.module === "y" ? "es6" : "es5",
+      };
       CreateRouteFile(parameters);
     });
   });
