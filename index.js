@@ -10,7 +10,7 @@ const CreateServerFile = (parameters) => {
   fsPromises
     .writeFile(parameters.file_name, data)
     .then(() => {
-      console.log("Server Initialization Comlete");
+      console.log("Server Initialized");
     })
     .catch((err) => console.error("Error", err));
 };
