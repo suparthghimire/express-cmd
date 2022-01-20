@@ -41,43 +41,48 @@ const middleware_collection = {
 };
 const template_collecton = {
   pug: (sub_folder) => {
-    return `app.set("view engine", "pug")\napp.set("views", "views${
+    return `app.set("view engine", "pug")\napp.set("views", "${
       sub_folder && sub_folder !== null && sub_folder !== ""
-        ? `/${sub_folder}`
+        ? `${sub_folder}`
         : ""
     }");`;
   },
   ejs: (sub_folder) => {
-    return `app.set("view engine", "ejs")\napp.set("views", "views${
+    return `app.set("view engine", "ejs")\napp.set("views", "${
       sub_folder && sub_folder !== null && sub_folder !== ""
-        ? `/${sub_folder}`
+        ? `${sub_folder}`
         : ""
     }");`;
   },
 };
 
-const combine_syntax = (module, options) => {
+const CreateInitServer = (module, options) => {
   let data = [];
 
   data.push(import_collecton.path(module));
-  if (options.de) data.push(import_collecton.dotenv(module));
+  if (options.d_e) data.push(import_collecton.dotenv(module));
   data.push(import_collecton.express(module));
-  if (options.cp) data.push(import_collecton.cookie_parser(module));
+  if (options.c_p) data.push(import_collecton.cookie_parser(module));
 
-  data.push("\n");
-  if (options.de) data.push(init_collection.dotenv());
+  if (options.d_e) {
+    data.push("\n");
+    data.push(init_collection.dotenv());
+  }
   data.push(init_collection.express());
 
   data.push("\n");
   data.push(middleware_collection.json());
   data.push(middleware_collection.urlencoded(false));
   data.push(middleware_collection.public("public"));
-  if (options.cp) data.push(middleware_collection.cookie_parser());
+  if (options.c_p) data.push(middleware_collection.cookie_parser());
 
-  data.push("\n");
-
-  if (options.template === "pug") data.push(template_collecton.pug());
-  else if (options.template === "ejs") data.push(template_collecton.ejs());
+  if (options.template === "pug") {
+    data.push("\n");
+    data.push(template_collecton.pug());
+  } else if (options.template === "ejs") {
+    data.push("\n");
+    data.push(template_collecton.ejs());
+  }
 
   data.push("\n");
   data.push(middleware_collection.initial_route());
@@ -87,4 +92,4 @@ const combine_syntax = (module, options) => {
   return data.reduce((a, b) => a + "\n" + b);
 };
 
-module.exports = combine_syntax;
+module.exports = { CreateInitServer };
