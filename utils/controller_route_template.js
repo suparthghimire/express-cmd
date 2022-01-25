@@ -65,7 +65,7 @@ const CreateRoute = (controller_name, crud, module) => {
       create_route_function("get", "/show/:id", controller_name, "show"),
       create_route_function("put", "/update/:id", controller_name, "update"),
       create_route_function("patch", "/update/:id", controller_name, "update"),
-      create_route_function("delete", "/update/:id", controller_name, "delete"),
+      create_route_function("delete", "/delete/:id", controller_name, "delete"),
     ];
   }
   let crud_string = "";
