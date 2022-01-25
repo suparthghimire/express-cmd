@@ -1,6 +1,6 @@
 {
   "name": "express-cmd",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Boiler Plate Generator for Express Application",
   "main": "index.js",
   "bin": "./commands.js",
